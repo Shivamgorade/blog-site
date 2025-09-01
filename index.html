@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Aniket News — Mobile-First Blog</title>
+  <meta name="description" content="A clean, fast mobile-first blog template with multi-article support, search, categories and a contact form.">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+   <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AN</div>
+        <div>
+          <div class="site-title">Aniket News</div>
+          <div class="site-sub">Mobile-first news &amp; articles</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21 21l-4.35-4.35" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="5" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+          <input id="searchInput" placeholder="Search articles, tags..." aria-label="Search articles">
+        </div>
+        <div class="hamburger" id="menuBtn" aria-label="Open menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- Featured / Hero -->
+    <section class="hero" id="heroSection">
+      <div class="hero-img" id="heroImg"></div>
+      <div>
+        <h2 id="heroTitle">Welcome to Aniket News — designed for phones</h2>
+        <div class="meta">Fast. Readable. Focused. Swipe or tap articles to open the full reader.</div>
+      </div>
+    </section>
+
+    <!-- Filters / Categories -->
+    <div style="display:flex;gap:10px;margin:10px 0;overflow:auto">
+      <button class="tag" data-cat="all">All</button>
+      <button class="tag" data-cat="tech">Tech</button>
+      <button class="tag" data-cat="policy">Policy</button>
+      <button class="tag" data-cat="design">Design</button>
+      <button class="tag" data-cat="industry">Industry</button>
+    </div>
+
+    <!-- Articles grid -->
+    <section class="grid" id="articlesGrid" aria-live="polite"></section>
+
+    <!-- Contact + Footer -->
+    <div style="margin-top:18px;display:grid;gap:12px">
+      <div class="contact">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>Contact</strong>
+          <small class="muted">We reply within 48 hrs</small>
+        </div>
+        <input id="name" placeholder="Your name" class="input">
+        <input id="email" placeholder="Email or phone" class="input">
+        <textarea id="message" rows="4" placeholder="Message" class="input"></textarea>
+        <div style="display:flex;gap:8px">
+          <button id="sendContact">Send</button>
+          <button id="clearContact" style="background:#eef2f6;color:var(--text)">Clear</button>
+        </div>
+      </div>
+
+      <footer>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <strong>Aniket News</strong>
+            <div class="muted">Quality content. Mobile-first reading.</div>
+          </div>
+          <div class="muted">Contact: <a href="mailto:hello@aniketnews.example">hello@aniketnews.example</a> • Phone: +91 98765 43210</div>
+        </div>
+        <div style="margin-top:12px;font-size:.82rem;color:var(--muted)">© <span id="year"></span> Aniket News — Built for small screens.</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Reader modal / single article panel -->
+  <div class="reader" id="reader">
+    <div class="panel" role="dialog" aria-modal="true">
+      <header>
+        <div>
+          <div id="readerTitle" style="font-weight:700"></div>
+          <div class="muted" id="readerMeta" style="font-size:.85rem"></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="shareBtn" class="tag">Share</button>
+         <button id="closeReader" class="tag">Close</button>
+        </div>
+      </header>
+      <article id="readerBody" style="margin-top:12px;line-height:1.6;font-size:1rem"></article>
+    </div>
+  </div>
+<script src="script.js"></script>
+
+</body>
+</html>

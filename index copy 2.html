@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Aniket News — Mobile-First Blog</title>
+  <meta name="description" content="A clean, fast mobile-first blog template with multi-article support, search, categories and a contact form.">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <style>
+    /* =======================
+       Mobile-first Blog CSS
+       Clean, minimal and responsive
+       ======================= */
+    :root{
+      --bg:#ffffff; --muted:#6b7280; --accent:#ffb703; --card:#f8fafc; --glass:rgba(255,255,255,0.6);
+      --radius:14px; --max-width:980px; --gap:14px; --shadow:0 6px 18px rgba(12,12,15,0.06);
+      --text:#0f172a;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+    /* Container */
+    .wrap{max-width:var(--max-width);padding:18px;margin:0 auto}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:44px;height:44px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#ff7b54);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+    .site-title{font-weight:700;font-size:1.02rem}
+    .site-sub{font-size:.76rem;color:var(--muted)}
+
+    /* Nav / search */
+    .controls{display:flex;align-items:center;gap:8px}
+    .search{display:flex;align-items:center;background:#f1f5f9;border-radius:10px;padding:6px 10px;gap:8px}
+    .search input{border:0;background:transparent;outline:0;font-size:.95rem;width:120px}
+    .hamburger{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:10px;background:#fff;border:1px solid #eef2f6;cursor:pointer}
+
+    /* Featured */
+    .hero{margin:14px 0;padding:14px;border-radius:var(--radius);background:linear-gradient(180deg,#fff,var(--card));box-shadow:var(--shadow);display:flex;gap:12px}
+    .hero .hero-img{flex:0 0 110px;height:84px;border-radius:10px;background:#e6eef8;overflow:hidden}
+    .hero h2{font-size:1.02rem;margin:0}
+    .meta{font-size:.78rem;color:var(--muted);margin-top:6px}
+   .tag {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff7ed;
+  border: 1px solid #fff0db;
+  color: #000;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+
+.tag:hover {
+  background: #ffe4c4; /* light hover effect */
+}
+
+    /* Grid of cards */
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .card{background:#fff;border-radius:12px;padding:12px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:flex-start}
+    .card .thumb{width:80px;height:64px;border-radius:8px;background:#eef2ff;flex-shrink:0}
+    .card h3{font-size:.98rem;margin:0}
+    .card p{margin:.4rem 0 .2rem;color:var(--muted);font-size:.88rem}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:.72rem;padding:6px 8px;border-radius:999px;background:#fff7ed;border:1px solid #fff0db}
+
+    /* Article view (single page modal) */
+    .reader{position:fixed;inset:0;background:rgba(5,6,7,0.45);display:none;align-items:flex-end}
+    .reader.open{display:flex}
+    .reader .panel{width:100%;max-height:92vh;background:linear-gradient(180deg,#fff,#fbfbff);border-top-left-radius:18px;border-top-right-radius:18px;padding:18px;overflow:auto}
+    .reader .panel header{display:flex;justify-content:space-between;align-items:center}
+    .reader article{padding-bottom:36px}
+
+    /* Footer */
+    footer{margin:26px 0 60px;padding-top:18px;border-top:1px solid #f1f5f9;color:var(--muted);font-size:.9rem}
+
+    /* Contact card */
+    .contact{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:12px;background:#fff;box-shadow:var(--shadow)}
+    .input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #eef2f6;outline:0;font-size:0.94rem}
+    button{background:var(--accent);border:0;padding:10px 14px;border-radius:10px;color:#fff;font-weight:700;cursor:pointer}
+
+    /* Small utilities */
+    .muted{color:var(--muted)}
+    .center{display:flex;justify-content:center}
+
+    /* Responsive: from 760px and up show 2 columns */
+    @media(min-width:760px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .search input{width:200px}
+    }
+    @media(min-width:1000px){
+      .wrap{padding:32px}
+      .hero{gap:18px}
+      .grid{grid-template-columns:repeat(3,1fr)}
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AN</div>
+        <div>
+          <div class="site-title">Aniket News</div>
+          <div class="site-sub">Mobile-first news &amp; articles</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21 21l-4.35-4.35" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="5" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+          <input id="searchInput" placeholder="Search articles, tags..." aria-label="Search articles">
+        </div>
+        <div class="hamburger" id="menuBtn" aria-label="Open menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- Featured / Hero -->
+    <section class="hero" id="heroSection">
+      <div class="hero-img" id="heroImg"></div>
+      <div>
+        <h2 id="heroTitle">Welcome to Aniket News — designed for phones</h2>
+        <div class="meta">Fast. Readable. Focused. Swipe or tap articles to open the full reader.</div>
+      </div>
+    </section>
+
+    <!-- Filters / Categories -->
+    <div style="display:flex;gap:10px;margin:10px 0;overflow:auto">
+      <button class="tag" data-cat="all">All</button>
+      <button class="tag" data-cat="tech">Tech</button>
+      <button class="tag" data-cat="policy">Policy</button>
+      <button class="tag" data-cat="design">Design</button>
+      <button class="tag" data-cat="industry">Industry</button>
+    </div>
+
+    <!-- Articles grid -->
+    <section class="grid" id="articlesGrid" aria-live="polite"></section>
+
+    <!-- Contact + Footer -->
+    <div style="margin-top:18px;display:grid;gap:12px">
+      <div class="contact">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>Contact</strong>
+          <small class="muted">We reply within 48 hrs</small>
+        </div>
+        <input id="name" placeholder="Your name" class="input">
+        <input id="email" placeholder="Email or phone" class="input">
+        <textarea id="message" rows="4" placeholder="Message" class="input"></textarea>
+        <div style="display:flex;gap:8px">
+          <button id="sendContact">Send</button>
+          <button id="clearContact" style="background:#eef2f6;color:var(--text)">Clear</button>
+        </div>
+      </div>
+
+      <footer>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <strong>Aniket News</strong>
+            <div class="muted">Quality content. Mobile-first reading.</div>
+          </div>
+          <div class="muted">Contact: <a href="mailto:hello@aniketnews.example">hello@aniketnews.example</a> • Phone: +91 98765 43210</div>
+        </div>
+        <div style="margin-top:12px;font-size:.82rem;color:var(--muted)">© <span id="year"></span> Aniket News — Built for small screens.</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Reader modal / single article panel -->
+  <div class="reader" id="reader">
+    <div class="panel" role="dialog" aria-modal="true">
+      <header>
+        <div>
+          <div id="readerTitle" style="font-weight:700"></div>
+          <div class="muted" id="readerMeta" style="font-size:.85rem"></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="shareBtn" class="tag">Share</button>
+         <button id="closeReader" class="tag">Close</button>
+        </div>
+      </header>
+      <article id="readerBody" style="margin-top:12px;line-height:1.6;font-size:1rem"></article>
+    </div>
+  </div>
+
+ <script>
+    // =====================
+    // Mobile-first blog JS
+    // Features:
+    // - In-memory articles array (replace with API when ready)
+    // - Search, category filter, open reader, share via Web Share API
+    // - Contact form (mailto fallback)
+    // =====================
+
+    const articles = [
+      {
+        id: 'a1',
+        title: 'Host layouts in 2025',
+        date: '2025-09-01',
+        author: 'Shivam Gorade',
+        category: 'design',
+        excerpt: 'Designing for mobile-first means thinking about performance, readability and thumb-friendly interactions. This guide helps you start.',
+        image: 'https://static.toiimg.com/thumb/msid-123624558,imgsize-648774,width-400,resizemode-4/article-65.jpg',
+        content: `<p>Mobile-first design is no longer optional. Start with the smallest screen and scale up. Focus on typography, vertical rhythm, and fast-loading images. Use progressive enhancement and keep interactions thumb-friendly.</p><h3>Quick checklist</h3><ul><li>Readable font sizes</li><li>Sufficient tap targets</li><li>Fast assets &amp; lazy loading</li></ul>`
+      },
+      {
+        id: 'a2',
+        title: 'Top 5 tools for small teams',
+        date: '2025-08-27',
+        author: 'Aniket',
+        category: 'industry',
+        excerpt: 'Tools that help small editorial teams ship content faster without expensive infra.',
+        image: 'https://c.ndtvimg.com/2025-08/6bp94ugo_the-bengal-files-_625x300_26_August_25.jpg?im=FeatureCrop,algorithm=dnn,width=773,height=435',
+        content: `<p>From simple CMSs to static site generators, small teams benefit from choosing tools that lower friction. Consider content-as-data and easy deployment.</p>`
+      },
+      {
+        id: 'a3',
+        title: 'Policy changes to watch this year',
+        date: '2025-07-18',
+        author: 'Editorial',
+        category: 'policy',
+        excerpt: 'A roundup of policy changes and what they mean for readers and publishers.',
+        image: '',
+        content: `<p>Policy updates can affect how content is moderated, monetized and distributed. Keep an eye on platform T&amp;Cs and local regulations.</p>`
+      },
+      {
+        id: 'a4',
+        title: 'Policy changes to watch this yearEDF    WEDFQWEDQWEDF',
+        date: '2025-07-18',
+        author: 'Editorial',
+        category: 'policy',
+        excerpt: 'A roundup of policy changes and what they mean for readers and publishers.',
+        image: '',
+        content: `<p>Policy updates can affect how content is moderated, monetized and distributed. Keep an eye on platform T&amp;Cs and local regulations.</p>`
+      }
+    ];
+
+    // Helpers
+    const byId = id => document.getElementById(id);
+    const grid = byId('articlesGrid');
+    const heroTitle = byId('heroTitle');
+    const heroImg = byId('heroImg');
+    const year = byId('year');
+    year.textContent = new Date().getFullYear();
+
+    function renderArticles(list){
+      grid.innerHTML = '';
+      if(list.length === 0){
+        grid.innerHTML = '<div class="center muted" style="padding:18px">No articles found</div>';
+        return;
+      }
+      list.forEach(a => {
+        const el = document.createElement('article');
+        el.className = 'card';
+        el.innerHTML = `
+          <div class="thumb" aria-hidden>
+            ${a.image ? `<img src="${a.image}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;border-radius:8px">` : ''}
+          </div>
+          <div style="flex:1">
+            <h3>${a.title}</h3>
+            <p class="muted">${a.author} • ${a.date}</p>
+            <p class="muted">${a.excerpt}</p>
+            <div class="tags"><button class="tag" data-id="${a.id}">Read</button><div class="tag">${a.category}</div></div>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+    }
+
+    // initial render
+    renderArticles(articles);
+
+    // set hero to first article
+    function setHero(a){
+      heroTitle.textContent = a.title;
+      if (a.image) {
+        heroImg.innerHTML = `<img src="${a.image}" alt="${a.title}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`;
+      } else {
+        heroImg.innerHTML = '';
+        heroImg.style.background = 'linear-gradient(180deg,#eef2ff,#e6f1ff)';
+      }
+      // make hero clickable to open full article
+      heroImg.onclick = () => openReader(a.id);
+      heroTitle.onclick = () => openReader(a.id);
+    }
+    setHero(articles[0]);
+
+    // Search
+    const searchInput = byId('searchInput');
+    searchInput.addEventListener('input', e => {
+      const q = e.target.value.trim().toLowerCase();
+      const filtered = articles.filter(a => (a.title + ' ' + a.excerpt + ' ' + a.category).toLowerCase().includes(q));
+      renderArticles(filtered);
+    });
+
+    // Category filter
+    document.querySelectorAll('[data-cat]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const cat = btn.getAttribute('data-cat');
+        if(cat === 'all') renderArticles(articles);
+        else renderArticles(articles.filter(a => a.category === cat));
+      });
+    });
+
+    // Open reader when clicking read buttons or card
+    grid.addEventListener('click', e => {
+      const idBtn = e.target.closest('[data-id]');
+      if(idBtn){
+        const id = idBtn.getAttribute('data-id');
+        openReader(id);
+        return;
+      }
+      const card = e.target.closest('.card');
+      if(card){
+        const title = card.querySelector('h3')?.textContent;
+        const art = articles.find(a => a.title === title);
+        if(art) openReader(art.id);
+      }
+    });
+
+    
+
+    // Reader functions
+    const reader = byId('reader');
+    const readerTitle = byId('readerTitle');
+    const readerMeta = byId('readerMeta');
+    const readerBody = byId('readerBody');
+
+    function openReader(id){
+      const a = articles.find(x => x.id === id);
+      if(!a) return;
+      readerTitle.textContent = a.title;
+      readerMeta.textContent = `${a.author} • ${a.date}`;
+      readerBody.innerHTML = 
+        (a.image ? `<img src="${a.image}" alt="${a.title}" style="max-width:100%;border-radius:12px;margin-bottom:12px">` : '') +
+        a.content + `<p style="margin-top:16px;color:var(--muted)">Category: ${a.category}</p>`;
+      reader.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    byId('closeReader').addEventListener('click', () => closeReader());
+    reader.addEventListener('click', e => { if(e.target === reader) closeReader(); });
+
+    function closeReader(){ reader.classList.remove('open'); document.body.style.overflow = ''; }
+
+    // Share
+    byId('shareBtn').addEventListener('click', async () => {
+      try{
+        const title = readerTitle.textContent;
+        const text = readerBody.textContent.slice(0,120) + '...';
+        if(navigator.share){
+          await navigator.share({title,text,url:location.href});
+        } else {
+          alert('Use copy/paste to share this article');
+        }
+      }catch(err){console.warn(err)}
+    });
+
+    // Menu (simple toast)
+    byId('menuBtn').addEventListener('click', ()=>{
+      alert('Menu: You can add links to Home, Categories, About, Archive, etc.');
+    });
+
+    // Contact form (simple mailto fallback)
+    byId('sendContact').addEventListener('click', ()=>{
+      const n = byId('name').value.trim();
+      const e = byId('email').value.trim();
+      const m = byId('message').value.trim();
+      if(!n || !e || !m){ alert('Please fill all fields'); return; }
+      const subject = encodeURIComponent('Contact from ' + n);
+      const body = encodeURIComponent(`Name: ${n}\nEmail: ${e}\n\n${m}`);
+      // Try fetch to server endpoint (not available in static template) - fallback to mailto
+      location.href = `mailto:hello@aniketnews.example?subject=${subject}&body=${body}`;
+    });
+    byId('clearContact').addEventListener('click', ()=>{ byId('name').value=''; byId('email').value=''; byId('message').value=''; });
+
+    // Accessibility: keyboard close
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeReader(); });
+
+    // Expose a basic method for adding articles from console (for testing)
+    window.addArticle = function(a){ articles.unshift(a); renderArticles(articles); setHero(articles[0]); }
+
+    // Small improvement: detect reduced-motion preference
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(!mq.matches){
+      // light entrance animation
+      document.querySelectorAll('.card').forEach((c,i)=>{ c.style.opacity = 0; c.style.transform = 'translateY(6px)'; setTimeout(()=>{ c.style.transition='all .36s cubic-bezier(.2,.9,.2,1)'; c.style.opacity=1; c.style.transform='none' }, i*60) });
+    }
+
+</script>
+
+
+</body>
+</html>
